@@ -1,0 +1,23 @@
+<div style="width:100%;overflow-y: auto;">
+    <div class="cw-top-height">
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px;">用户名：</label>
+            <input type="text" ng-model="args.username" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left: 5px;">
+            <label style="float:left;margin-top: 5px;">邮箱：</label>
+            <input type="text" ng-model="args.mailbox" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left:15px;">
+            <button ng-click="search_mail()" class="btn btn-primary">查询</button>
+        </div>
+        <div style="float:right;margin-left:15px;">
+            <button ng-click="add_mail()" ng-disabled="isHasMail" class="btn btn-primary">添加管理员邮箱</button>
+        </div>
+    </div>
+    <div cw-adaptbody="42" ng-grid="gridOption"
+         style="width:100%;overflow-y: auto;overflow-x: hidden"></div>
+</div>
+

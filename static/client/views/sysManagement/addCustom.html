@@ -1,0 +1,64 @@
+<div>
+    <div dragable1 dialog-title="{{ title }}"></div>
+    <div style="width: 100%;padding: 30px 20px 20px 30px;">
+        <div class="form-horizontal">
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">选择类型：</label>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-model="args.attr_type" ng-disabled="is_modify">
+                        <option value="ip">IP</option>
+                        <option value="pool">资源池</option>
+                    </select>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="!args.attr_type && is_submit"
+                          class="text-danger fl">类型不能为空</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">字段名称：</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" ng-model="args.name" input-hint="请输入字段名称，只允许英文、数字、下划线"
+                           onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'')">
+                    <span style="font-size: 12px;margin-top: 0" ng-show="!args.name && is_submit"
+                          class="text-danger fl">字段名称不能为空</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">显示名称：</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" ng-model="args.cn_name" input-hint="请输入显示名称">
+                    <span style="font-size: 12px;margin-top: 0" ng-show="!args.cn_name && is_submit"
+                          class="text-danger fl">显示名称不能为空</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">必填项：</label>
+                <label style="margin-bottom: 0px; padding-top: 7px; margin-left: 10px;"
+                       class="switch switch-sm switch-primary">
+                    <input type="checkbox" ng-checked="args.is_required"
+                           ng-click="args.is_required = !args.is_required">
+                    <span>
+                        <i class="handle"></i>
+                    </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">备注：</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" style="height: 60px !important;"
+                              ng-model="args.description"></textarea>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;margin-top: 20px;">
+            <button class="btn btn-primary" ng-click="confirm()">
+                确认
+            </button>
+            <button style="margin-left: 20px;" class="btn btn-default" ng-click="cancel()">
+                取消
+            </button>
+        </div>
+    </div>
+</div>

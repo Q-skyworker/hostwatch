@@ -1,0 +1,109 @@
+<div style="width:100%;overflow-y: auto;">
+    <div class="cw-top-height">
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px;">名称：</label>
+            <input type="text" ng-model="args.title" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left:15px;">
+            <button ng-click="searchList()" class="btn btn-primary">查询</button>
+        </div>
+        <div style="float:right;margin-left:15px;">
+            <button ng-click="addObj()" class="btn btn-primary">添加IP资源池</button>
+        </div>
+    </div>
+    <div cw-adaptbody="42" ng-grid="gridOption" style="width:100%;overflow-y: auto;overflow-x: hidden"></div>
+</div>
+
+<div ng-if="isShowDetail" ng-click="closeInfo()" class="infoPage"></div>
+<div ng-show="isShowDetail" class="addInfo">
+    <div class="infoTitle">
+        <div class="infoTitleText">资源池详情</div>
+        <span class="fa fa-lg fa-close" ng-click="closeInfo()"></span>
+    </div>
+    <hr>
+    <div style="width:100%;padding:5px;height: 70%;" class="form-horizontal">
+        <div class="form-group" style="height: 50px;">
+            <label class="col-sm-2 control-label" style="margin-left: 5%">名称：</label>
+            <div class="col-sm-7">
+                <input type="text" ng-disabled="!isModify" class="form-control" ng-model="selectItem.title"/>
+                <span style="font-size: 12px;margin-top: 0" ng-show="!selectItem.title && is_submit"
+                      class="text-danger fl">名称不能为空</span>
+            </div>
+            <span class="text-danger mt5 fl">*</span>
+        </div>
+        <div class="form-group" style="height: 50px;">
+            <label class="col-sm-2 control-label" style="margin-left: 5%">网段：</label>
+            <div class="col-sm-7">
+                <input type="text" ng-disabled="!isModify" class="form-control" ng-model="selectItem.ip_net"/>
+                <span style="font-size: 12px;margin-top: 0" ng-show="rules.ip_net && is_submit"
+                      class="text-danger fl">{{ rules.ip_net }}</span>
+            </div>
+            <span class="text-danger mt5 fl">*</span>
+        </div>
+        <div class="form-group" style="height: 50px;">
+            <label class="col-sm-2 control-label" style="margin-left: 5%">云区域：</label>
+            <div class="col-sm-7">
+                <input type="text" ng-disabled="!isModify" class="form-control" ng-model="selectItem.cloud_id"
+                       input-hint="默认为0"/>
+                <span style="font-size: 12px;margin-top: 0" ng-show="rules.cloud_id && is_submit"
+                      class="text-danger fl">{{ rules.cloud_id }}</span>
+            </div>
+            <span class="text-danger mt5 fl">*</span>
+        </div>
+        <div class="form-group" style="height: 50px;">
+            <label class="col-sm-2 control-label" style="margin-left: 5%">子网掩码：</label>
+            <div class="col-sm-7">
+                <input type="text" ng-disabled="!isModify || isModifyMask" class="form-control"
+                       ng-model="selectItem.net_mask"/>
+            </div>
+            <span class="text-danger mt5 fl">*</span>
+        </div>
+        <div class="form-group" style="height: 50px;">
+            <label class="col-sm-2 control-label" style="margin-left: 5%">网关：</label>
+            <div class="col-sm-7">
+                <input type="text" ng-disabled="!isModify" class="form-control" ng-model="selectItem.gate_way"/>
+                <span style="font-size: 12px;margin-top: 0" ng-show="rules.gate_way && is_submit"
+                      class="text-danger fl">{{ rules.gate_way }}</span>
+            </div>
+            <span class="text-danger mt5 fl">*</span>
+        </div>
+        <div class="form-group" style="height: 50px;">
+            <label class="col-sm-2 control-label" style="margin-left: 5%">DNS服务器：</label>
+            <div class="col-sm-7">
+                <input type="text" ng-disabled="!isModify" class="form-control" ng-model="selectItem.dns"/>
+                <span style="font-size: 12px;margin-top: 0" ng-show="rules.dns && is_submit"
+                      class="text-danger fl">{{ rules.dns }}</span>
+            </div>
+            <span class="text-danger mt5 fl">*</span>
+        </div>
+        <div class="form-group" style="height: 50px;">
+            <label class="col-sm-2 control-label" style="margin-left: 5%">添加者：</label>
+            <div class="col-sm-7">
+                <input type="text" disabled class="form-control" ng-model="selectItem.created_by"/>
+            </div>
+        </div>
+        <div class="form-group" style="height: 50px;">
+            <label class="col-sm-2 control-label" style="margin-left: 5%">添加时间：</label>
+            <div class="col-sm-7">
+                <input type="text" disabled class="form-control" ng-model="selectItem.when_created"/>
+            </div>
+        </div>
+        <div class="form-group" ng-repeat="i in selectItem.attrObj" style="height: 50px;">
+            <label class="col-sm-2 control-label" style="margin-left: 5%">{{ i.cn_name }}：</label>
+            <div class="col-sm-7">
+                <input ng-disabled="!isModify" type="text" class="form-control" ng-model="i.value"/>
+                <span style="font-size: 12px;margin-top: 0" ng-show="!i.value && is_submit"
+                      class="text-danger fl">{{ i.cn_name }}不能为空</span>
+            </div>
+            <span ng-if="i.is_required" class="text-danger mt5 fl">*</span>
+        </div>
+    </div>
+    <div style="position:fixed;bottom: 10px;width: 100%;text-align: center">
+        <button ng-if="!isModify" ng-click="modify()" class="btn btn-primary">修改</button>
+        <button ng-if="isModify" ng-click="confirm()" class="btn btn-primary">确定</button>
+        <button ng-if="isModify" ng-click="cancel()" class="btn btn-default" style="margin-left: 10px">取消</button>
+    </div>
+
+</div>
+

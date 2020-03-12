@@ -1,0 +1,187 @@
+<div style="color: #333">
+    <div dragable1 dialog-title="{{ title }}">
+    </div>
+    <div style="margin-bottom: 10px;padding-top:15px;">
+        <div style="width:100%;padding:5px;max-height: 400px; overflow: auto" class="form-horizontal">
+            <div ng-if="!flag" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">IP资源池：</label>
+                <div class="col-sm-7">
+                    <select class="form-control" ng-change="change_pool(applyObj.ip_pool_id)"
+                            ng-model="applyObj.ip_pool_id" ng-options="i.id as i.text for i in ip_pool_list"></select>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="flag" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">IP资源池：</label>
+                <div class="col-sm-7">
+                    <input disabled type="text" class="form-control" ng-model="applyObj.ip_pool_name"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">云区域：</label>
+                <div class="col-sm-7">
+                    <input disabled type="text" class="form-control" ng-model="applyObj.cloud_id"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">类型选择：</label>
+                <div class="col-sm-7">
+                    <div class="radio">
+                        <label class="mr10" style="padding-left: 0">
+                            <input ng-disabled="flag" type="radio" name="ip_type" ng-model="applyObj.ip_type"
+                                   value="00"><span>IP</span>
+                        </label>
+                        <label>
+                            <input ng-disabled="flag" type="radio" name="ip_type" ng-model="applyObj.ip_type"
+                                   value="01"><span>网段</span>
+                        </label>
+                    </div>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="applyObj.ip_type=='00'" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">IP：</label>
+                <div class="col-sm-7">
+                    <input ng-disabled="flag" type="text" input-hint="多个IP中间请用英文逗号隔开" class="form-control"
+                           ng-model="applyObj.ips"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.ip && is_submit"
+                          class="text-danger fl">{{ rules.ip }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="applyObj.ip_type=='01'" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">网段：</label>
+                <div class="col-sm-8">
+                    <input style="float:left;width:150px" ng-disabled="flag" type="text" class="form-control"
+                           input-hint="请输入起始IP" ng-model="applyObj.start_ip"/>
+                    <span style="float: left;width: 23px;text-align: center;">~</span>
+                    <input style="float:left;width:150px" ng-disabled="flag" type="text" class="form-control"
+                           input-hint="请输入结束IP" ng-model="applyObj.end_ip"/>
+                    <span style="font-size: 12px;margin-top: 0"
+                          ng-show="rules.start_ip && is_submit"
+                          class="text-danger fl">{{ rules.start_ip }}</span>
+                </div>
+                <span style="margin-left: -49px" class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">子网掩码：</label>
+                <div class="col-sm-7">
+                    <input type="text" ng-disabled="isModify || flag" class="form-control"
+                           ng-model="applyObj.net_mask"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">网关：</label>
+                <div class="col-sm-7">
+                    <input ng-disabled="isModify || flag" type="text" class="form-control"
+                           ng-model="applyObj.gate_way"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">DNS服务器：</label>
+                <div class="col-sm-7">
+                    <input ng-disabled="flag" type="text" class="form-control" ng-model="applyObj.dns"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.dns && is_submit"
+                          class="text-danger fl">{{ rules.dns }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="!flag" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">业务系统：</label>
+                <div class="col-sm-7">
+                    <select class="form-control" ng-model="applyObj.business"
+                            ng-options="i.bk_biz_name as i.bk_biz_name for i in business_list"></select>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="flag" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">业务系统：</label>
+                <div class="col-sm-7">
+                    <input disabled type="text" class="form-control" ng-model="applyObj.business"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="!flag" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">过期时间：</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" ng-model="applyObj.when_expired"
+                           cw-datepicker/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.time && is_submit"
+                          class="text-danger fl">{{ rules.time }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="flag" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">过期时间：</label>
+                <div class="col-sm-7">
+                    <input disabled type="text" class="form-control" ng-model="applyObj.when_expired"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">邮箱：</label>
+                <div class="col-sm-7">
+                    <input type="text" ng-disabled="flag" class="form-control" ng-model="applyObj.email"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.email && is_submit"
+                          class="text-danger fl">{{ rules.email }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">描述：</label>
+                <div class="col-sm-7">
+                    <textarea ng-disabled="flag" class="form-control" ng-model="applyObj.description"
+                              style="height: 60px !important;"/>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: 20px">
+                <label class="col-sm-3 control-label">申请理由：</label>
+                <div class="col-sm-7">
+                    <textarea ng-disabled="flag" class="form-control" ng-model="applyObj.apply_reason"
+                              input-hint="100个字以内"
+                              style="height: 60px !important;"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.reason && is_submit"
+                          class="text-danger fl">{{ rules.reason }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" ng-repeat="attr_obj in applyObj.attr_list" style="margin-top: 20px">
+                <label class="col-sm-3 control-label">{{ attr_obj.cn_name }}:</label>
+                <div class="col-sm-7">
+                    <input type="text" ng-disabled="flag" class="form-control" ng-model="attr_obj.value"/>
+                    <span style="font-size: 12px;margin-top: 0"
+                          ng-show="!attr_obj.value && is_submit && attr_obj.is_required"
+                          class="text-danger fl">{{ attr_obj.cn_name }}不能为空</span>
+                </div>
+                <span ng-if="attr_obj.is_required" class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="isShow" class="form-group" style="margin-top: 20px">
+                <label class="col-sm-3 control-label">拒绝理由：</label>
+                <div class="col-sm-7">
+                    <textarea ng-disabled="flag" class="form-control" ng-model="applyObj.refuse_reason"
+                              style="height: 60px !important;"/>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!flag" style="text-align: center; margin: 10px;">
+            <button class="btn btn-success" ng-click="save()">
+                保存
+            </button>
+            <button style="margin-left: 10px;" class="btn btn-info" ng-click="commit()">
+                提交
+            </button>
+            <button style="margin-left: 10px;" class="btn btn-default" ng-click="cancel()">
+                取消
+            </button>
+        </div>
+        <div ng-if="flag" style="text-align: center;">
+            <button style="margin-left: 10px;" class="btn btn-default" ng-click="cancel()">
+                返回
+            </button>
+        </div>
+    </div>
+</div>

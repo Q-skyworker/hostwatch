@@ -1,0 +1,59 @@
+<div style="color: #333">
+    <div dragable1 dialog-title="{{ title }}">
+    </div>
+    <div style="margin-bottom: 10px;padding-top:15px;">
+        <div style="width:100%;padding:5px;" class="form-horizontal">
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">IP：</label>
+                <div class="col-sm-7">
+                    <input disabled type="text" input-hint="多个IP中间请用英文逗号隔开" class="form-control"
+                           ng-model="applyObj.ips"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">云区域：</label>
+                <div class="col-sm-7">
+                    <input disabled type="text" class="form-control" ng-model="applyObj.cloud_id"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">续约过期时间至：</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" ng-model="applyObj.when_expired"
+                           cw-datepicker/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.time && is_submit"
+                              class="text-danger fl">{{ rules.time }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">邮箱：</label>
+                <div class="col-sm-7">
+                    <input disabled type="text" class="form-control" ng-model="applyObj.email"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 85px;">
+                <label class="col-sm-3 control-label">申请理由：</label>
+                <div class="col-sm-7">
+                    <textarea class="form-control" ng-model="applyObj.apply_reason"
+                              input-hint="100个字以内"
+                              style="height: 60px !important;"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.reason && is_submit"
+                              class="text-danger fl">{{ rules.reason }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+        </div>
+        <div style="text-align: center;margin-top: 20px">
+            <button class="btn btn-info" ng-click="confirm()">
+                确定
+            </button>
+            <button style="margin-left: 10px;" class="btn btn-default" ng-click="cancel()">
+                取消
+            </button>
+        </div>
+    </div>
+</div>

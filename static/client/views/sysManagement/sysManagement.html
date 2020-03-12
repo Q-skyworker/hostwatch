@@ -1,0 +1,82 @@
+<div style="width:100%;height: 100%;">
+    <div ng-if="isModify" style="overflow-y: auto;height: 100%;">
+        <table class="table table-bordered table-padding table-height">
+            <tr>
+                <td style="width:300px;vertical-align: middle">APP Logo</td>
+                <td style="vertical-align: middle">
+                    <input id="uploadFile" style="display: none" onchange="angular.element(this).scope().upload_img()"
+                           name="uploadFile" type="file"/>
+                    <button class="btn btn-primary"
+                            onclick="document.getElementById('uploadFile').value = ''; document.getElementById('uploadFile').click();">
+                        选择图片文件
+                    </button>&emsp;&emsp;
+                    <button class="btn btn-primary" ng-click="setDefaultImg()">
+                        恢复默认
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <th style="width:300px;line-height: 33px;">资源池告警阀值（%）</th>
+                <td>
+                    <input type="type" class="form-control" ng-model="args.poolWarn"
+                           onkeyup="this.value=this.value.replace(/\D|^0/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D|^0/g,'')">
+                </td>
+            </tr>
+            <tr>
+                <th style="width:300px;line-height: 33px;">IP即将到期邮件提醒（天）</th>
+                <td>
+                    <input type="type" class="form-control" ng-model="args.ipWarnDay"
+                           onkeyup="this.value=this.value.replace(/\D|^0/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D|^0/g,'')">
+                </td>
+            </tr>
+            <tr>
+                <th style="line-height: 33px;">IP释放预留时间（天）</th>
+                <td>
+                    <input type="type" class="form-control" ng-model="args.recycleDay"
+                           onkeyup="this.value=this.value.replace(/\D|^0/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D|^0/g,'')">
+                </td>
+            </tr>
+        </table>
+        <div style="width:100%;text-align: center;padding: 10px;">
+            <button ng-click="confirm()" class="btn btn-primary">保存设置</button>
+            <button ng-click="cancel()" style="margin-left: 5px;width:70px;" class="btn btn-default">取消
+            </button>
+        </div>
+    </div>
+    <div ng-if="!isModify" style="overflow-y: auto;height: 100%;">
+        <table class="table table-bordered table-height">
+            <tr>
+                <td style="width:300px;vertical-align: middle">APP Logo</td>
+                <td style="vertical-align: middle">
+                    <input id="uploadFile" style="display: none" onchange="angular.element(this).scope().upload_img()"
+                           name="uploadFile" type="file"/>
+                    <button class="btn btn-primary"
+                            onclick="document.getElementById('uploadFile').value = ''; document.getElementById('uploadFile').click();">
+                        选择图片文件
+                    </button>&emsp;&emsp;
+                    <button class="btn btn-primary" ng-click="setDefaultImg()">
+                        恢复默认
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td style="line-height: 33px;width:300px">资源池阀值（%）</td>
+                <td style="line-height: 33px;" ng-bind="args.poolWarn"></td>
+            </tr>
+            <tr>
+                <td style="line-height: 33px;">IP即将到期邮件提醒（天）</td>
+                <td style="line-height: 33px;" ng-bind="args.ipWarnDay"></td>
+            </tr>
+            <tr>
+                <td style="line-height: 33px;">IP释放预留时间（天）</td>
+                <td style="line-height: 33px;" ng-bind="args.recycleDay"></td>
+            </tr>
+        </table>
+        <div style="width:100%;text-align: center;padding: 10px;">
+            <button ng-click="modifySettings()" style="width: 70px;" class="btn btn-primary">修改</button>&emsp;
+        </div>
+    </div>
+</div>

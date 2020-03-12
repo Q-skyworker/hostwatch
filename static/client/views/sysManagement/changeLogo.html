@@ -1,0 +1,20 @@
+<div style="width:100%;overflow-y: auto;">
+    <div style="overflow-y: auto;height: 100%;">
+        <table class="table table-bordered table-padding table-height" style="margin-bottom: 0">
+            <tr>
+                <th style="width:300px;vertical-align: middle">APP Logo</th>
+                <td style="vertical-align: middle">
+                    <input id="uploadFile" style="display: none" onchange="angular.element(this).scope().upload_img()"
+                           name="uploadFile" type="file"/>
+                    <button class="btn btn-primary"
+                            onclick="document.getElementById('uploadFile').value = ''; document.getElementById('uploadFile').click();">
+                        选择图片文件
+                    </button>&emsp;&emsp;
+                    <button class="btn btn-primary" ng-click="setDefaultImg()">
+                        恢复默认
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

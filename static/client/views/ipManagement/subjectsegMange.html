@@ -1,0 +1,92 @@
+<div ng-if="!isShowDetail" style="width:100%;overflow-y: auto;">
+    <fieldset class="fieldsetName">
+        <legend style="">查询条件</legend>
+        <div class="container-fluid">
+            <div style="float:left;">
+                <label style="float:left;margin-top: 5px;">IP地址：</label>
+                <input type="text" ng-model="filterObj.ip" style="width:150px;float:left;"
+                       class="form-control"/>
+            </div>
+            <div style="float:left;margin-left: 5px;">
+                <label style="float:left;margin-top: 5px;">业务系统：</label>
+                <input type="text" ng-model="filterObj.business" style="width:150px;float:left;"
+                       class="form-control"/>
+            </div>
+            <div style="float:left;margin-left:15px;">
+                <button ng-click="searchList()" class="btn btn-info">查询</button>
+            </div>
+        </div>
+    </fieldset>
+    <div cw-adaptbody="100" ng-grid="gridOption" style="width:100%;margin-top: 5px;"></div>
+</div>
+<div style="width:100%;padding: 5px;overflow-y: auto;" ng-if="isShowDetail">
+    <table class="table table-bordered">
+        <tr>
+            <td style="width:15%" class="active" align="right">所属资源池</td>
+            <td colspan="3">
+                <div class="col-md-6">{{ selectItem.ip_pool_name }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:15%" class="active" align="right">起始IP</td>
+            <td style="width:35%">
+                <div class="col-md-6">{{ selectItem.start_ip }}</div>
+            </td>
+            <td style="width:15%" class="active" align="right">结束IP</td>
+            <td style="width:35%">
+                <div class="col-md-6">{{ selectItem.end_ip }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="active" align="right">业务</td>
+            <td>
+                <div class="col-md-6">{{ selectItem.business }}</div>
+            </td>
+            <td class="active" align="right">管理员</td>
+            <td>
+                <div class="col-md-6">{{ selectItem.owner }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="active" align="right">创建时间</td>
+            <td>
+                <div class="col-md-6">{{ selectItem.when_created }}</div>
+            </td>
+
+            <td class="active" align="right">过期时间</td>
+            <td>
+                <div class="col-md-6">{{ selectItem.when_expired }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="active" align="right">IP总数</td>
+            <td>
+                <div class="col-md-6">{{ selectItem.all_length }}</div>
+            </td>
+            <td class="active" align="right">已使用IP数</td>
+            <td>
+                <div class="col-md-6">{{ selectItem.used_num }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="active" align="right">描述</td>
+            <td colspan="3">
+                <div class="col-md-6">{{ selectItem.description }}</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="active" align="right" style="vertical-align: middle">已使用IP详情</td>
+            <td colspan="3">
+                <div cw-adaptbody="350" class="col-md-10" style="overflow-y: auto;width: 100%">
+                    <div class="col-sm-6 col-md-6 col-lg-3" style="height: 30px;"
+                         ng-repeat="i in selectItem.ip_used_list">
+                        <span ng-bind="i"></span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div style="width: 100%;margin-top: 5px;text-align: center">
+        <button ng-click="returnBack()" class="btn btn-default">返回</button>
+    </div>
+</div>

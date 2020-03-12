@@ -1,0 +1,17 @@
+<div style="width:100%;overflow-y: auto;">
+    <div class="cw-top-height">
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px;">模型名称：</label>
+            <input type="text" ng-model="filterObj.model_name" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left:15px;">
+            <button ng-click="searchList()" class="btn btn-primary">查询</button>
+        </div>
+        <div style="float:right;margin-left:15px;">
+            <button ng-click="addObj()" class="btn btn-primary">新增模型</button>
+        </div>
+    </div>
+    <div cw-adaptbody="42" ng-grid="gridOption" style="width:100%;"></div>
+</div>
+

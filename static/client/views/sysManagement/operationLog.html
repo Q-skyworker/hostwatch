@@ -1,0 +1,37 @@
+<div style="width:100%;overflow-y: auto;">
+    <div class="cw-top-height">
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px;">操作人：</label>
+            <input type="text" ng-model="filter.operator" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left: 5px;">
+            <label style="float:left;margin-top: 5px;">操作类型：</label>
+            <select ng-model="filter.operateType" style="width:150px;float:left;" class="form-control">
+                <option value="00">全部</option>
+                <option value="add">新增</option>
+                <option value="update">修改</option>
+                <option value="delete">删除</option>
+                <option value="api">执行</option>
+                <option value="refuse">拒绝</option>
+                <option value="approve">通过</option>
+            </select>
+        </div>
+        <div style="float:left;margin-left: 5px;">
+            <label style="float:left;margin-top: 5px;">开始时间：</label>
+            <input type="text" ng-model="filter.whenStart" cw-datepicker style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left: 5px;">
+            <label style="float:left;margin-top: 5px;">结束时间：</label>
+            <input type="text" ng-model="filter.whenEnd" cw-datepicker style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left:15px;">
+            <button ng-click="SearchObj()" class="btn btn-primary">查询</button>
+        </div>
+    </div>
+    <div cw-adaptbody="42" ng-grid="gridoption"
+         style="overflow-x: hidden; overflow-y: auto; width: 100%"></div>
+</div>
+

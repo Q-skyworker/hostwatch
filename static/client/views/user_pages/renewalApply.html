@@ -1,0 +1,103 @@
+<div style="color: #333">
+    <div dragable1 dialog-title="{{ title }}">
+    </div>
+    <div style="margin-bottom: 10px;padding-top:15px;">
+        <div style="width:100%;padding:5px;" class="form-horizontal">
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">类型选择：</label>
+                <div class="col-sm-7">
+                    <div class="radio">
+                        <label class="mr10" style="padding-left: 0">
+                            <input ng-disabled="flag" type="radio" name="ip_type" ng-model="applyObj.ip_type"
+                                   value="00">
+                            <span>IP</span>
+                        </label>
+                        <label>
+                            <input ng-disabled="flag" type="radio" name="ip_type" ng-model="applyObj.ip_type"
+                                   value="01">
+                            <span>网段</span>
+                        </label>
+                    </div>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="applyObj.ip_type=='00'" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">IP：</label>
+                <div class="col-sm-7">
+                    <input ng-disabled="flag" type="text" input-hint="多个IP中间请用英文逗号隔开" class="form-control"
+                           ng-model="applyObj.ips"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.ip && is_submit"
+                          class="text-danger fl">{{ rules.ip }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="applyObj.ip_type=='01'" class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">网段：</label>
+                <div class="col-sm-8">
+                    <input ng-disabled="flag" style="float:left;width:150px" type="text" class="form-control"
+                           input-hint="请输入起始IP" ng-model="applyObj.start_ip"/>
+                    <span style="float: left;width: 23px;text-align: center;">~</span>
+                    <input ng-disabled="flag" style="float:left;width:150px" type="text" class="form-control"
+                           input-hint="请输入结束IP" ng-model="applyObj.end_ip"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.start_ip && is_submit"
+                          class="text-danger fl">{{ rules.start_ip }}</span>
+                </div>
+                <span style="margin-left: -49px" class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">云区域：</label>
+                <div class="col-sm-7">
+                    <input ng-disabled="flag" type="text" class="form-control" ng-model="applyObj.cloud_id"/>
+                </div>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">续约过期时间至：</label>
+                <div class="col-sm-7">
+                    <input ng-disabled="flag" type="text" class="form-control" ng-model="applyObj.when_expired"
+                           cw-datepicker/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.time && is_submit"
+                          class="text-danger fl">{{ rules.time }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">邮箱：</label>
+                <div class="col-sm-7">
+                    <input ng-disabled="flag" type="text" class="form-control" ng-model="applyObj.email"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.email && is_submit"
+                          class="text-danger fl">{{ rules.email }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 85px;">
+                <label class="col-sm-3 control-label">申请理由：</label>
+                <div class="col-sm-7">
+                    <textarea ng-disabled="flag" class="form-control" ng-model="applyObj.apply_reason"
+                              input-hint="100个字以内"
+                              style="height: 60px !important;"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.reason && is_submit"
+                          class="text-danger fl">{{ rules.reason }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div ng-if="isShow" class="form-group">
+                <label class="col-sm-3 control-label">拒绝理由：</label>
+                <div class="col-sm-7">
+                    <textarea ng-disabled="flag" class="form-control" ng-model="applyObj.refuse_reason"
+                              style="height: 60px !important;"/>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;margin-top: 20px">
+            <button ng-if="!flag" class="btn btn-success" ng-click="save()">
+                保存
+            </button>
+            <button style="margin-left: 10px;" ng-if="!flag" class="btn btn-info" ng-click="commit()">
+                提交
+            </button>
+            <button style="margin-left: 10px;" class="btn btn-default" ng-click="cancel()">
+                取消
+            </button>
+        </div>
+    </div>
+</div>

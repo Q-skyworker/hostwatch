@@ -1,0 +1,34 @@
+<div style="width:100%;overflow-y: auto;">
+    <div class="cw-top-height">
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px;">任务名：</label>
+            <input type="text" ng-model="filterObj.task_name" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left:5px">
+            <label style="float:left;margin-top: 5px;">模型：</label>
+            <select class="form-control" ng-model="filterObj.model_name" style="width:150px;float:left;"
+                    ng-options="i.bk_obj_name as i.bk_obj_name for i in module_list"></select>
+        </div>
+        <div style="float:left;margin-left: 5px;">
+            <label style="float:left;margin-top: 5px;">状态：</label>
+            <select ng-model="filterObj.status" style="width:150px;float:left;" class="form-control">
+                <option value="">全部</option>
+                <option value="RUNNING">运行中</option>
+                <option value="COMPLETE">已完成</option>
+            </select>
+        </div>
+        <div style="float:left;margin-left: 5px;">
+            <label style="float:left;margin-top: 5px;">开始时间：</label>
+            <input type="text" ng-model="filterObj.start_time_from" cw-datepicker style="width:120px;float:left;"
+                   class="form-control"/>
+            <label style="float:left;margin-top: 5px;">—</label>
+            <input type="text" ng-model="filterObj.start_time_to" cw-datepicker style="width:120px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left:15px;">
+            <button ng-click="search_list()" class="btn btn-primary">查询</button>
+        </div>
+    </div>
+    <div cw-adaptbody="42" ng-grid="gridOption" style="width:100%;"></div>
+</div>

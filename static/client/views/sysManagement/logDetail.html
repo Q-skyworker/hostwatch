@@ -1,0 +1,44 @@
+<div>
+    <div dragable1 dialog-title="操作详情"></div>
+    <div style="width: 100%;padding: 10px;max-height: 400px;overflow-y: auto">
+        <table class="table table-bordered log-table" style="table-layout: fixed">
+            <tr>
+                <th style="width:200px;">属性</th>
+                <th>详情</th>
+            </tr>
+            <tr ng-repeat="i in logDetail">
+                <td style="width:200px;vertical-align: middle">{{ i.name }}</td>
+                <td ng-if="!i.is_list">{{ i.value }}</td>
+                <td ng-if="i.is_list" style="white-space: inherit;">
+                    <table ng-if="logType!='delete'" class="table table-bordered log-table-detail" style="margin-bottom: 0">
+                        <tr ng-if="i.value.addItems.length>0">
+                            <td style="width:100px;vertical-align: middle">增加项</td>
+                            <td>
+                                <div ng-repeat="u in i.value.addItems" ng-bind="u"></div>
+                            </td>
+                        </tr>
+                        <tr ng-if="i.value.updateItems.length>0">
+                            <td style="vertical-align: middle">修改项</td>
+                            <td>
+                                <div ng-repeat="u in i.value.updateItems" ng-bind="u"></div>
+                            </td>
+                        </tr>
+                        <tr ng-if="i.value.deleteItems.length>0">
+                            <td style="vertical-align: middle">删除项</td>
+                            <td>
+                                <div ng-repeat="u in i.value.deleteItems" ng-bind="u"></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <span ng-if="logType=='delete'">
+                        <span style="line-height: 30px;" ng-repeat="u in i.value.addItems">{{ u }}<br></span>
+                    </span>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+        <div style="width:100%;text-align: center;margin:10px">
+        <button class="btn btn-default" ng-click="cancel()">返回</button>
+    </div>
+</div>

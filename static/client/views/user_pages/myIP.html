@@ -1,0 +1,129 @@
+<div style="width:100%;">
+    <div class="cw-top-height">
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px;">IP地址：</label>
+            <input type="text" ng-model="filterObj.ip" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left: 5px;">
+            <label style="float:left;margin-top: 5px;">业务系统：</label>
+            <input type="text" ng-model="filterObj.business" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left: 15px;">
+            <label style="float:left;margin-top: 5px;">使用状态：</label>
+            <select class="form-control" style="width:150px;float:left;" ng-model="filterObj.ip_status">
+                <option value="">全部</option>
+                <option value="00">已分配</option>
+                <option value="01">使用中</option>
+            </select>
+        </div>
+        <div style="float:left;margin-left:15px;">
+            <button ng-click="searchList()" class="btn btn-primary">查询</button>
+        </div>
+    </div>
+    <div cw-adaptbody="10" ng-grid="gridOption" style="width:100%;"></div>
+</div>
+<div ng-if="isShowDetail" ng-click="closeInfo()" class="infoPage"></div>
+<div ng-show="isShowDetail" class="addInfo">
+    <div style="height: 95%;">
+        <div class="infoTitle">
+            <div class="infoTitleText">IP详情</div>
+            <span class="fa fa-lg fa-close" ng-click="closeInfo()"></span>
+        </div>
+        <hr>
+        <div style="width:100%;padding:5px;height: 85%;overflow: auto;" class="form-horizontal">
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">IP：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="true" type="text" class="form-control" ng-model="selectItem.ip"/>
+                </div>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">网段：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="true" type="text" class="form-control" ng-model="selectItem.ip_pool.ip_net"/>
+                </div>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">云区域：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="true" type="text" class="form-control" ng-model="selectItem.cloud_id"/>
+                </div>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">子网掩码：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input type="text" ng-disabled="!isModify || isModifyMask" class="form-control"
+                           ng-model="selectItem.net_mask"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">网关：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="!isModify || isModifyGate" type="text" class="form-control"
+                           ng-model="selectItem.gate_way"/>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">DNS服务器：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="!isModify" type="text" class="form-control" ng-model="selectItem.dns"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.dns && is_submit"
+                              class="text-danger fl">{{ rules.dns }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">管理员：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="true" cw-selectstr2="userOption" type="text" style="width: 100%;"
+                           ng-model="selectItem.owner_id"/>
+                </div>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">管理员邮箱：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="!isModify" type="text" class="form-control" ng-model="selectItem.owner_mail"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.mail && is_submit"
+                              class="text-danger fl">{{ rules.mail }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">过期时间：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="true" type="text" class="form-control" ng-model="selectItem.when_expired"
+                           cw-datepicker/>
+                </div>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">业务系统：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="!isModify" type="text" class="form-control" ng-model="selectItem.business"/>
+                </div>
+            </div>
+            <div class="form-group" style="height: 85px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">描述：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <textarea ng-disabled="!isModify" class="form-control" style="height: 60px !important;"
+                              ng-model="selectItem.description"/>
+                </div>
+            </div>
+            <div class="form-group" ng-repeat="i in selectItem.attrObj" style="height: 50px;">
+                <label class="col-sm-3 control-label" style="margin-left: 5%">{{ i.cn_name }}：</label>
+                <div class="col-sm-7" style="width: 40%;">
+                    <input ng-disabled="!isModify" type="text" class="form-control" ng-model="i.value"/>
+                </div>
+                <span ng-if="i.is_required" class="text-danger mt5 fl">*</span>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center">
+        <button ng-if="!isModify" ng-click="modify()" class="btn btn-primary">修改</button>
+        <button ng-if="isModify" ng-click="confirm()" class="btn btn-primary">确定</button>
+        <button ng-if="isModify" ng-click="cancel()" class="btn btn-default" style="margin-left: 10px">取消</button>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+[
+{"id":1,"key":"PORTS","value":"21,22,23,80,135,139,443,445,1433,3389,8000,8080","description":"默认扫描端口号"},
+{"id":2, "key": "POOL_WARN", "value": "80", "description": "资源池阀值"},
+{"id":3, "key": "IP_WARN_DAY", "value": "15", "description": "IP即将到期邮件提醒"},
+{"id":4, "key": "RECYCLE_DAY", "value": "15", "description": "IP释放预留时间"}
+]

@@ -1,0 +1,77 @@
+<div class="addIPPool">
+    <div dragable1 dialog-title="{{ title }}"></div>
+    <div style="width: 100%;padding: 30px 20px 20px 30px;max-height: 400px;overflow: auto">
+        <div class="form-horizontal">
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">名称：</label>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="args.title">
+                    <span style="font-size: 12px;margin-top: 0" ng-show="!args.title && is_submit"
+                          class="text-danger fl">名称不能为空</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">网段：</label>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="args.ip_net" input-hint="如：192.168.0.0/24">
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.ip_net && is_submit"
+                          class="text-danger fl">{{ rules.ip_net }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">云区域：</label>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="args.cloud_id" input-hint="默认为0">
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.cloud_id && is_submit"
+                          class="text-danger fl">{{ rules.cloud_id }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" ng-if="is_modify" style="height: 50px;">
+                <label class="col-sm-3 control-label">子网掩码：</label>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="args.net_mask" disabled>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="!args.net_mask && is_submit"
+                          class="text-danger fl">子网掩码不能为空</span>
+                </div>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">网关：</label>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="args.gate_way">
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.gate_way && is_submit"
+                          class="text-danger fl">{{ rules.gate_way }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">DNS服务器：</label>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="args.dns">
+                    <span style="font-size: 12px;margin-top: 0" ng-show="rules.dns && is_submit"
+                          class="text-danger fl">{{ rules.dns }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" ng-repeat="attr_obj in args.attr_list" style="height: 50px;">
+                <label class="col-sm-3 control-label">{{ attr_obj.cn_name }}</label>
+                <div class="col-sm-6">
+                    <input class="form-control" ng-model="attr_obj.value">
+                    <span style="font-size: 12px;margin-top: 0" ng-show="!attr_obj.value && is_submit"
+                          class="text-danger fl">{{ attr_obj.cn_name }}不能为空</span>
+                </div>
+                <span ng-if="attr_obj.is_required" class="text-danger mt5 fl">*</span>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center;margin-top: 10px;height: 40px">
+        <button class="btn btn-primary" ng-click="confirm()">
+            确认
+        </button>
+        <button style="margin-left: 20px;" class="btn btn-default" ng-click="cancel()">
+            取消
+        </button>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div style="width:100%;overflow-y: auto;">
+    <div class="cw-top-height">
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px;">类型：</label>
+            <select type="text" ng-model="filterObj.attr_type" style="width:150px;float:left;"
+                    class="form-control">
+                <option value="">全部</option>
+                <option value="ip">IP</option>
+                <option value="pool">资源池</option>
+            </select>
+        </div>
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px;margin-left: 5px">字段名称：</label>
+            <input type="text" ng-model="filterObj.name" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px; margin-left: 5px">显示名称：</label>
+            <input type="text" ng-model="filterObj.cn_name" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;">
+            <label style="float:left;margin-top: 5px; margin-left: 5px">添加者：</label>
+            <input type="text" ng-model="filterObj.created_by" style="width:150px;float:left;"
+                   class="form-control"/>
+        </div>
+        <div style="float:left;margin-left:15px;">
+            <button ng-click="searchCustom()" class="btn btn-primary">查询</button>
+        </div>
+        <div style="float:right;margin-left:15px;">
+            <button ng-click="addCustom()" class="btn btn-primary">添加自定义属性</button>
+        </div>
+    </div>
+    <div cw-adaptbody="42" ng-grid="gridOption"
+         style="width:100%;overflow-y: auto;overflow-x: hidden"></div>
+</div>
+

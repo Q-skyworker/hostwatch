@@ -1,0 +1,134 @@
+<div style="color: #333">
+    <div dragable1 dialog-title="{{ title }}"></div>
+    <div style="margin-bottom: 10px;padding-top:15px;" ng-if="isAddModule">
+        <div style="width:100%;padding:5px;max-height: 400px; overflow: auto" class="form-horizontal">
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">选择模型：</label>
+                <div class="col-sm-7">
+                    <select class="form-control" ng-change="change_module(module_obj.module.bk_obj_id)"
+                            ng-model="module_obj.module" ng-options="i as i.bk_obj_name for i in module_list"></select>
+                </div>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">指定IP字段：</label>
+                <div class="col-sm-7">
+                    <input type="text" cw-selectstr2="selectOptions" selectText="text_text" style="width:100%;"
+                           placeholder="支持多选" ng-model="module_obj.ip_fields"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="!module_obj.ip_fields && is_submit"
+                          class="text-danger fl">指定IP字段不能为空</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <label class="col-sm-3 control-label">指定云区域字段：</label>
+                <div class="col-sm-3" style="padding-right: 0;margin-right: 0">
+                    <select class="form-control"
+                            ng-model="module_obj.bk_cloud_id"
+                            ng-options="i.id as i.text for i in property_cloud_list"></select>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="module_obj.bk_cloud_id == '-1' && is_submit"
+                          class="text-danger fl">云区域字段不能为空</span>
+                </div>
+                <div ng-if="module_obj.bk_cloud_id == -2">
+                    <label class="control-label"
+                           style="position:relative;min-height:1px; padding-left:12px;float: left">指定固定云区域：</label>
+                    <div class="col-sm-1" style="width:12%">
+                        <select class="form-control" style="padding-left:4px"
+                                ng-model="module_obj.bk_cloud_const" ng-options="i for i in const_cloud_list"></select>
+                        <span style="font-size: 12px;margin-top: 0" ng-show="!module_obj.bk_cloud_const && is_submit"
+                              class="text-danger fl">指定固定云区域不能为空</span>
+                    </div>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div class="form-group" style="height: 50px;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="width:80%">同步优先级</label>
+                    <i class="fa fa-info-circle"
+                       ng-mouseenter="isDisplayInfo = true" ng-mouseleave="isDisplayInfo = false">:</i>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" input-hint="仅支持数字,且优先级唯一" class="form-control"
+                           ng-model="module_obj.level"/>
+                    <span style="font-size: 12px;margin-top: 0" ng-show="leverRule && is_submit"
+                          class="text-danger fl">{{ leverRule }}</span>
+                </div>
+                <span class="text-danger mt5 fl">*</span>
+            </div>
+            <div style="width:45%;position: absolute;top: 200px;left:23%;background-color: #ff9;font-size:3px;"
+                 ng-if="isDisplayInfo">
+                全量同步时，同步优先级越大，同步操作越迟，最终同步结果以最迟写入的数据为准
+            </div>
+        </div>
+        <div style="text-align: center; margin: 10px;">
+            <button class="btn btn-primary" ng-click="confirm()">
+                确定
+            </button>
+            <button style="margin-left: 10px;" class="btn btn-default" ng-click="cancel()">
+                取消
+            </button>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 10px;padding-top:15px;" ng-if="!isAddModule">
+        <div style="width:100%;padding:5px;max-height: 400px;overflow: auto" class="form-horizontal">
+            <div style="padding-left:4%;float: left;width:100%;height: 50px;"
+                 ng-repeat="map_obj in map_module.map_list">
+                <label style="float:left;text-align: center;padding:5px;width:12%;background-color: #fafbfd">IP属性</label>
+                <select ng-model="map_obj.ip_pro_id" style="margin-left:5px;width:25%;float:left;"
+                        class="form-control" ng-options="i as i for i in ip_pros"
+                        ng-disabled='map_obj.is_NeedMap || !is_edit_status'></select>
+                <label style="float:left;margin-left:10px;text-align: center;padding: 5px;background-color: #fafbfd">CMDB属性</label>
+                <select ng-model="map_obj.cmdb_pro_id" style="margin-left:5px;width:25%;float:left;"
+                        ng-if="map_obj.ip_pro_id != 'ip' && map_obj.ip_pro_id != 'cloud_id'"
+                        class="form-control" ng-options="i.id as i.text for i in cmdb_pros"
+                        ng-disabled='!is_edit_status'></select>
+                <!-- 云区域控件-->
+                <select ng-model="map_obj.cmdb_pro_id" style="margin-left:5px;width:25%;float:left;"
+                        ng-if="map_obj.ip_pro_id == 'cloud_id'" ng-disabled='!is_edit_status'
+                        class="form-control" ng-options="i.id as i.text for i in cmdb_cloud_pros"></select>
+                <!-- ip控件-->
+                <div style="margin-left:5px;width:25%;float:left;" ng-if="map_obj.ip_pro_id == 'ip'">
+                    <input type="text" cw-selectstr2="selectOptions" selectText="text_text" style="width:100%"
+                           placeholder="支持多选" ng-model="map_obj.cmdb_pro_id" ng-disabled='!is_edit_status'/>
+                </div>
+
+                <button class="fa fa-close btn-icon" ng-click="del_map_format(map_obj)" ng-if='is_edit_status'
+                        style="background-color:#f00;margin-top:1px;padding-left:9px;padding-right:9px;color:#fff;margin-left:5px;border-radius: 15px"></button>
+                <button class="fa fa-plus btn-icon" ng-click="add_map_format(map_obj)" ng-if='is_edit_status'
+                        style="background-color:#0cf;margin-top:1px;padding-left:9px;padding-right:9px;color:#fff;margin-left:4px;border-radius: 15px"></button>
+
+                <div style="padding-left:37%;float: left;width:100%;"
+                     ng-if="map_obj.ip_pro_id == 'cloud_id' && map_obj.cmdb_pro_id == '-2'">
+                    <label style="float:left;margin-left:15px;text-align: center;padding: 5px;background-color: #eee">固定云区域</label>
+                    <!-- 云区域控件-->
+                    <select ng-model="map_obj.cmdb_cloud_constant" style="margin-left:5px;width:12%;float:left;"
+                            class="form-control" ng-options="i for i in const_cloud_list"
+                            ng-disabled='!is_edit_status'></select>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin: 10px;">
+            <button class="btn btn-success" ng-click="modify()" ng-if='!is_edit_status'>
+                修改
+            </button>
+            <button style="margin-left: 10px;" class="btn btn-success" ng-click="save()" ng-if='is_edit_status'>
+                保存
+            </button>
+            <button style="margin-left: 10px;" class="btn btn-info" ng-click="cancel()" ng-if='is_edit_status'>
+                取消
+            </button>
+            <button style="margin-left: 10px;" class="btn btn-default" ng-click="close()">
+                关闭
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
